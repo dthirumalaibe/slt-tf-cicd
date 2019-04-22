@@ -25,8 +25,7 @@ before_script:
 # using Terraform rather than assume they already exist.
 script:
   - "terraform apply aws/ -auto-approve"
-  - "ansible --version"
-  # - "ansible-playbook test.yml"
+  - "ansible --version"  # "ansible-playbook test.yml"
 
 after_script:
-  # - "terraform destroy"
+  - "terraform destroy"
