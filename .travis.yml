@@ -10,7 +10,7 @@ python:
 # predefined Travis environment variables.
 install:
   - "pip install -r requirements.txt"
-  - "./aws_setup.sh"
+  - "./aws/setup.sh"
 
 # First, ensure AWS connectivity is functioning. Then,
 # execute linting to catch minor errors before running the main playbook.
@@ -18,10 +18,15 @@ install:
 before_script:
   - "aws sts get-caller-identity"
   - "find . -name '*.yml' | xargs yamllint -s"
+  - "terraform init aws/"
 
 # Perform playbook testing with on pre-existing virtual routers.
 # A more complex pipeline might deploy on-demand routers ahead of time
 # using Terraform rather than assume they already exist.
 script:
+  - "terraform apply aws/ -auto-approve"
   - "ansible --version"
   # - "ansible-playbook test.yml"
+
+after_script:
+  # - "terraform destroy"
