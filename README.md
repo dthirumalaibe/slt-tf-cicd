@@ -1,8 +1,11 @@
 [![Build Status](
-https://travis-ci.org/nickrusso42518/slt-netdevops.svg?branch=master)](
-https://travis-ci.org/nickrusso42518/slt-netdevops)
+https://travis-ci.org/nickrusso42518/slt-tf-cicd.svg?branch=master)](
+https://travis-ci.org/nickrusso42518/slt-tf-cicd)
 
-# Safari Live Training - Network DevOps
+# Safari Live Training - Terraform for Network CI/CD in AWS
+
+WORK IN PROGRESS
+
 Source code for the training course. Please contact me with any questions.
 Before beginning, be sure you know how to use `git` at a basic level on
 your computer. I teach `git` in the course so if you don't know how

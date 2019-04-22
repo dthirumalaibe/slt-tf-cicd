@@ -3,20 +3,25 @@
 # a Python virtualenv for each Python version to test it.
 language: "python"
 python:
-  - "2.7"
   - "3.6"
 
 # Install python packages for ansible and linters first.
+# Then setup the AWS CLI using a non-interactive script with
+# predefined Travis environment variables.
 install:
   - "pip install -r requirements.txt"
+  - "./aws_setup.sh"
 
-# Execute linting to catch minor errors before running the main playbook.
+# First, ensure AWS connectivity is functioning. Then,
+# execute linting to catch minor errors before running the main playbook.
 # Find all YAML files in the project and lint them in strict mode.
 before_script:
+  - "aws sts get-caller-identity"
   - "find . -name '*.yml' | xargs yamllint -s"
 
 # Perform playbook testing with on pre-existing virtual routers.
 # A more complex pipeline might deploy on-demand routers ahead of time
 # using Terraform rather than assume they already exist.
 script:
-  - "ansible-playbook test.yml"
+  - "ansible --version"
+  # - "ansible-playbook test.yml"
