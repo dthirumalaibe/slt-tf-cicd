@@ -20,12 +20,13 @@ before_script:
   - "find . -name '*.yml' | xargs yamllint -s"
   - "terraform init aws/"
 
-# Perform playbook testing with on pre-existing virtual routers.
-# A more complex pipeline might deploy on-demand routers ahead of time
-# using Terraform rather than assume they already exist.
+# Use Terraform to build the test environment, then run Ansible
+# to configure and test the devices.
 script:
   - "terraform apply -auto-approve aws/"
-  - "ansible --version"  # "ansible-playbook test.yml"
+  - "ansible-playbook test.yml"
 
+# Regardless of the test result, the test environment should be
+# torn down to avoid incurring additional cost.
 after_script:
   - "terraform destroy -auto-approve aws/"

@@ -1,0 +1,40 @@
+#
+provider "aws" {
+  region = "us-east-1"
+}
+
+resource "aws_vpc" "tf_vpc" {
+  cidr_block = "203.0.113.0/24"
+  tags = {
+    Name = "tf_vpc"
+  }
+}
+
+resource "aws_internet_gateway" "tf_vpc_igw" {
+  vpc_id = "${aws_vpc.tf_vpc.id}"
+  tags = {
+    Name = "tf_vpc_igw"
+  }
+}
+
+resource "aws_route_table" "tf_vpc_defroute" {
+  vpc_id = "${aws_vpc.tf_vpc.id}"
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = "${aws_internet_gateway.tf_vpc_igw.id}"
+  }
+  tags = {
+    Name = "main"
+  }
+}
+
+# how did we end up with ".id" below? use output?
+resource "aws_subnet" "tf_net" {
+  vpc_id = "${aws_vpc.tf_vpc.id}"
+  cidr_block = "203.0.113.64/26"
+  availability_zone = "us-east-1a"
+  map_public_ip_on_launch = true
+  tags = {
+    Name = "tf_net"
+  }
+}
