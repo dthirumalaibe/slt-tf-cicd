@@ -8,11 +8,10 @@
     # Terraform doesn't have a great "waiting" mechanism, so
     # Ansible can be called right away and then waits 3 minutes
     # for the routers to be fully initialized.
-    - name: "Wait for connection"
+    - name: "PRECHECK: Wait for connection"
       wait_for:
         host: "{{ inventory_hostname }}"
         port: 22
-        delay: 30
         timeout: 180
       delegate_to: localhost
 

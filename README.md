@@ -6,6 +6,7 @@ https://travis-ci.org/nickrusso42518/slt-tf-cicd)
 
 Source code for the training course. Please contact me with any questions.
 Basic knowledge on the following topics is encouraged:
+  * Amazon Web Services (AWS) EC2, Route53, and IAM services
   * General Continuous Integration/Continuous Delivery (CI/CD) concepts
   * `git` and Github
   * Travis CI
@@ -41,7 +42,8 @@ $ tree
 ├── aws
 │   ├── dns.tf
 │   ├── instance.tf
-│   └── setup.sh
+│   ├── setup.sh
+│   └── vars.tf
 ├── hosts.yml
 ├── LICENSE
 ├── ntp_config.yml
