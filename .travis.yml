@@ -14,12 +14,13 @@ install:
 
 # First, ensure AWS connectivity is functioning. Then, execute
 # YAML and Terraform linting to catch minor errors before
-# running the Terraform and Ansible code.
+# running the Terraform and Ansible code. The validate must
+# come after the init as the providers must be installed first.
 before_script:
   - "aws sts get-caller-identity"
   - "find . -name '*.yml' | xargs yamllint -s"
-  - "terraform validate aws/"
   - "terraform init aws/"
+  - "terraform validate aws/"
 
 # Use Terraform to build the test environment, then run Ansible
 # to configure and test the network devices.
