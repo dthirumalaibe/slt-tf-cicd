@@ -20,8 +20,6 @@
         that:
           - "ntp_server1 is defined"
           - "ntp_server2 is defined"
-          - "ntp_server1 | ipv4 == ntp_server1"
-          - "ntp_server2 | ipv4 == ntp_server2"
         msg: "Malformed input; please check ntp_server values"
 
     - name: "TASK 1: Apply NTP updates"

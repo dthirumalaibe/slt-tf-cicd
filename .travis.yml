@@ -12,16 +12,17 @@ install:
   - "pip install -r requirements.txt"
   - "./aws/setup.sh"
 
-# First, ensure AWS connectivity is functioning. Then,
-# execute linting to catch minor errors before running the main playbook.
-# Find all YAML files in the project and lint them in strict mode.
+# First, ensure AWS connectivity is functioning. Then, execute
+# YAML and Terraform linting to catch minor errors before
+# running the Terraform and Ansible code.
 before_script:
   - "aws sts get-caller-identity"
   - "find . -name '*.yml' | xargs yamllint -s"
+  - "terraform validate aws/"
   - "terraform init aws/"
 
 # Use Terraform to build the test environment, then run Ansible
-# to configure and test the devices.
+# to configure and test the network devices.
 script:
   - "terraform apply -auto-approve aws/"
   - "ansible-playbook test.yml"
